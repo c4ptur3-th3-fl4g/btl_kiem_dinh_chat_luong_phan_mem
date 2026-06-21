@@ -8,16 +8,16 @@ import java.time.Duration;
 import java.util.Collections;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 
 public class AppiumUtils  {
 
-    public static void scrollUsingCoordinatesLeft(AndroidDriver<AndroidElement> driver) {
+    public static void scrollUsingCoordinatesLeft(AndroidDriver driver) {
         try {
-            int startX = 1154;
-            int startY = 1680;
-            int endX = 190;
-            int endY = 1680;
+            Dimension size = driver.manage().window().getSize();
+            int startX = (int) (size.width * 0.85);
+            int startY = size.height / 2;
+            int endX = (int) (size.width * 0.15);
+            int endY = startY;
 
             // Tạo đối tượng PointerInput
             PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
@@ -29,7 +29,7 @@ public class AppiumUtils  {
                     .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg())); // Nhả tay
 
             // Thực hiện thao tác
-            ((AndroidDriver<?>) driver).perform(Collections.singletonList(swipe));
+            (driver).perform(Collections.singletonList(swipe));
 
             System.out.println("Scrolled from left to right using coordinates.");
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class AppiumUtils  {
         }
     }
 
-    public static void scrollUsingCoordinatesDown(AndroidDriver<AndroidElement> driver) {
+    public static void scrollUsingCoordinatesDown(AndroidDriver driver) {
         try {
             Dimension size = driver.manage().window().getSize();
             int startX = size.width / 2;
@@ -54,7 +54,7 @@ public class AppiumUtils  {
                     .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg())); // Nhả tay
 
             // Thực hiện thao tác
-            ((AndroidDriver<?>) driver).perform(Collections.singletonList(swipe));
+            (driver).perform(Collections.singletonList(swipe));
 
             System.out.println("Scrolled down using coordinates.");
         } catch (Exception e) {
@@ -62,12 +62,13 @@ public class AppiumUtils  {
         }
     }
 
-        public static void scrollUsingCoordinatesLeftCustom(AndroidDriver<AndroidElement> driver) {
+        public static void scrollUsingCoordinatesLeftCustom(AndroidDriver driver) {
             try {
-                int startX = 1344;
-                int startY = 1679;
-                int endX = 0;
-                int endY = 2169;
+                Dimension size = driver.manage().window().getSize();
+                int startX = (int) (size.width * 0.85);
+                int startY = (int) (size.height * 0.65);
+                int endX = (int) (size.width * 0.15);
+                int endY = startY;
 
                 PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
                 Sequence swipe = new Sequence(finger, 0)
@@ -75,8 +76,8 @@ public class AppiumUtils  {
                         .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                         .addAction(finger.createPointerMove(Duration.ofMillis(500), PointerInput.Origin.viewport(), endX, endY))
                         .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-                ((AndroidDriver<?>) driver).perform(Collections.singletonList(swipe));
-                System.out.println("Scrolled left with custom coordinates [1344,1679] to [0,2169].");
+                (driver).perform(Collections.singletonList(swipe));
+                System.out.println("Scrolled left using relative screen coordinates.");
             } catch (Exception e) {
                 System.err.println("Error while swiping left with custom coordinates: " + e.getMessage());
             }

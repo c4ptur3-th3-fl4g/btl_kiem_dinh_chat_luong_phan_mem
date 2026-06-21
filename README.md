@@ -1,3 +1,40 @@
+# Kiểm thử CGV trên Android 15
+
+Project đã được cập nhật cho Android 15 (API 35) và đã đối chiếu với CGV
+Cinemas Vietnam 2.10.12 (`com.cgv.cinema.vn`, target SDK 35).
+
+Yêu cầu: JDK 17+, Android SDK Platform/Platform-Tools API 35, Node.js/npm,
+Appium và driver UiAutomator2 hiện hành.
+
+```bash
+npm install -g appium
+appium driver install uiautomator2
+appium driver doctor uiautomator2
+adb devices
+appium
+```
+
+Ở terminal khác, cung cấp tài khoản thử nghiệm qua biến môi trường rồi chạy:
+
+```bash
+export ANDROID_UDID=<serial-tu-adb-devices>
+export CGV_PHONE=<tai-khoan-thu-nghiem>
+export CGV_PASSWORD=<mat-khau-thu-nghiem>
+./gradlew clean run
+```
+
+Các cấu hình tùy chọn: `ANDROID_VERSION` (mặc định `15`),
+`ANDROID_DEVICE_NAME`, `APPIUM_SERVER_URL` (mặc định
+`http://127.0.0.1:4723`) và `APPIUM_NO_RESET` (mặc định `true`). Có thể truyền
+cùng tên bằng JVM system property (`-D...`) thay cho biến môi trường.
+Các thao tác thay đổi hồ sơ chỉ chạy khi đặt `CGV_NEW_NAME` hoặc
+`CGV_NEW_PASSWORD`; mặc định project không đổi dữ liệu tài khoản.
+
+> Các ca đặt vé phụ thuộc phim, rạp, suất chiếu và ghế đang có tại thời điểm
+> chạy. Hãy dùng tài khoản/dữ liệu thử nghiệm và dừng trước bước thanh toán thật.
+
+---
+
 **TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM**
 
 **(Software Requirement Specification – SRS)**

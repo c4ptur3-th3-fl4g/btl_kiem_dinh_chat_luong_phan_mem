@@ -3,15 +3,16 @@ package mobile_testing_app.tests;
 import static mobile_testing_app.utils.AppiumUtils.scrollUsingCoordinatesDown;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
+import mobile_testing_app.TestConfig;
 import mobile_testing_app.utils.AppiumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BookingTest extends BaseTest {
 
-    public BookingTest(AndroidDriver<AndroidElement> driver) {
+    public BookingTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -31,7 +32,7 @@ public class BookingTest extends BaseTest {
     public void selectMovieByID(String movieID) {
         try {
             System.out.println("Starting to select movie with ID: " + movieID);
-            AndroidElement movieList = (AndroidElement) wait.until(
+            WebElement movieList = wait.until(
                     ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/gallery"))
             );
             System.out.println("Movie list found.");
@@ -42,14 +43,14 @@ public class BookingTest extends BaseTest {
 
             while (!found && swipeCount < maxSwipes) {
                 try {
-                    AndroidElement movieElement = (AndroidElement) wait.until(
+                    WebElement movieElement = wait.until(
                             ExpectedConditions.presenceOfElementLocated(By.xpath(
                                     "//android.widget.TextView[@resource-id='com.cgv.cinema.vn:id/number' and @text='" + movieID + "']"
                             ))
                     );
                     System.out.println("Movie found with ID: " + movieID);
 
-                    AndroidElement movieImage = (AndroidElement) wait.until(
+                    WebElement movieImage = wait.until(
                             ExpectedConditions.elementToBeClickable(By.xpath(
                                     "(//android.widget.ImageView[@resource-id='com.cgv.cinema.vn:id/image'])[4]"
                             ))
@@ -75,7 +76,7 @@ public class BookingTest extends BaseTest {
 
     private void testMovieBooking() {
         try {
-            AndroidElement bookNowButton = (AndroidElement) wait.until(
+            WebElement bookNowButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/book_now"))
             );
             bookNowButton.click();
@@ -143,7 +144,7 @@ public class BookingTest extends BaseTest {
 
             while (!cinemaFound && swipeCount < maxSwipes) {
                 try {
-                    AndroidElement cinemaElement = (AndroidElement) wait.until(
+                    WebElement cinemaElement = wait.until(
                             ExpectedConditions.visibilityOfElementLocated(By.xpath(cinemaXpath))
                     );
                     System.out.println("Found cinema: CGV Vincom Royal City");
@@ -154,7 +155,7 @@ public class BookingTest extends BaseTest {
 
                     if (!regionClicked) {
                         // Chỉ click vào region khi lần đầu tiên không tìm thấy rạp
-                        AndroidElement regionButton = (AndroidElement) wait.until(
+                        WebElement regionButton = wait.until(
                                 ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/lin_region"))
                         );
                         regionButton.click();
@@ -169,7 +170,7 @@ public class BookingTest extends BaseTest {
 
                         while (!regionFound && regionSwipeCount < maxRegionSwipes) {
                             try {
-                                AndroidElement regionElement = (AndroidElement) wait.until(
+                                WebElement regionElement = wait.until(
                                         ExpectedConditions.elementToBeClickable(By.xpath(regionXpath))
                                 );
                                 regionElement.click();
@@ -205,7 +206,7 @@ public class BookingTest extends BaseTest {
 
             while (!showTimeSelected && retryCount < maxRetries) {
                 try {
-                    AndroidElement showTimeButton = (AndroidElement) wait.until(
+                    WebElement showTimeButton = wait.until(
                             ExpectedConditions.elementToBeClickable(By.xpath(showTimeXpath))
                     );
                     showTimeButton.click();
@@ -253,7 +254,7 @@ public class BookingTest extends BaseTest {
     private void selectDate(String date) {
         try {
             String dateXpath = "//android.widget.TextView[@text='" + date + "']";
-            AndroidElement dateElement = (AndroidElement) wait.until(
+            WebElement dateElement = wait.until(
                     ExpectedConditions.visibilityOfElementLocated(By.xpath(dateXpath))
             );
             dateElement.click();
@@ -273,7 +274,7 @@ public class BookingTest extends BaseTest {
             for (String seat : primarySeats) {
                 String seatXpath = "//android.widget.TextView[@text='" + seat + "']";
                 try {
-                    AndroidElement seatElement = (AndroidElement) wait.until(
+                    WebElement seatElement = wait.until(
                             ExpectedConditions.elementToBeClickable(By.xpath(seatXpath))
                     );
                     seatElement.click();
@@ -291,7 +292,7 @@ public class BookingTest extends BaseTest {
                 for (String seat : primarySeats) {
                     String seatXpath = "//android.widget.TextView[@text='" + seat + "']";
                     try {
-                        AndroidElement seatElement = (AndroidElement) wait.until(
+                        WebElement seatElement = wait.until(
                                 ExpectedConditions.elementToBeClickable(By.xpath(seatXpath))
                         );
                         seatElement.click();
@@ -306,7 +307,7 @@ public class BookingTest extends BaseTest {
                 for (String seat : alternativeSeats) {
                     String seatXpath = "//android.widget.TextView[@text='" + seat + "']";
                     try {
-                        AndroidElement seatElement = (AndroidElement) wait.until(
+                        WebElement seatElement = wait.until(
                                 ExpectedConditions.elementToBeClickable(By.xpath(seatXpath))
                         );
                         seatElement.click();
@@ -324,7 +325,7 @@ public class BookingTest extends BaseTest {
                     for (String seat : primarySeats) {
                         String seatXpath = "//android.widget.TextView[@text='" + seat + "']";
                         try {
-                            AndroidElement seatElement = (AndroidElement) wait.until(
+                            WebElement seatElement = wait.until(
                                     ExpectedConditions.elementToBeClickable(By.xpath(seatXpath))
                             );
                             seatElement.click();
@@ -347,7 +348,7 @@ public class BookingTest extends BaseTest {
 
     private void watchTrailer() throws InterruptedException {
         try {
-            AndroidElement trailerLayer = (AndroidElement) wait.until(
+            WebElement trailerLayer = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/layer"))
             );
             trailerLayer.click();
@@ -361,7 +362,7 @@ public class BookingTest extends BaseTest {
 
     private boolean clickBuyNow() {
         try {
-            AndroidElement buyNowButton = (AndroidElement) wait.until(
+            WebElement buyNowButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/buy_now"))
             );
             buyNowButton.click();
@@ -383,7 +384,7 @@ public class BookingTest extends BaseTest {
             System.out.println("Age restriction dialog detected.");
 
             System.out.println("Clicking 'Cancel' on age restriction dialog...");
-            AndroidElement cancelButton = (AndroidElement) wait.until(
+            WebElement cancelButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("android:id/button2"))
             );
             cancelButton.click();
@@ -401,7 +402,7 @@ public class BookingTest extends BaseTest {
             ));
             System.out.println("Age restriction dialog detected again.");
 
-            AndroidElement confirmButton = (AndroidElement) wait.until(
+            WebElement confirmButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("android:id/button1"))
             );
             confirmButton.click();
@@ -423,13 +424,13 @@ public class BookingTest extends BaseTest {
 
     private void testAddItem() {
         try {
-            AndroidElement plusButton = (AndroidElement) wait.until(
+            WebElement plusButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("(//android.widget.TextView[@resource-id='com.cgv.cinema.vn:id/plus'])[2]"))
             );
             plusButton.click();
             System.out.println("Clicked second '+' button to increase item quantity.");
 
-            AndroidElement minusButton = (AndroidElement) wait.until(
+            WebElement minusButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("(//android.widget.TextView[@resource-id='com.cgv.cinema.vn:id/minus'])[2]"))
             );
             minusButton.click();
@@ -479,18 +480,22 @@ public class BookingTest extends BaseTest {
     // Thêm phương thức mới để thực hiện đăng nhập thành công
     private void performLoginSuccess() {
         try {
-            String sdt = "0375302679";
-            String password = "Dangvu01072004@";
+            String sdt = TestConfig.value("CGV_PHONE");
+            String password = TestConfig.value("CGV_PASSWORD");
+            if (sdt.isBlank() || password.isBlank()) {
+                System.out.println("Skipping booking login: set CGV_PHONE and CGV_PASSWORD.");
+                return;
+            }
 
-            AndroidElement emailField = (AndroidElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
+            WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
             emailField.clear();
             emailField.sendKeys(sdt);
 
-            AndroidElement passwordField = (AndroidElement) driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
+            WebElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
             passwordField.clear();
             passwordField.sendKeys(password);
 
-            AndroidElement loginButton = (AndroidElement) driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
+            WebElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
             loginButton.click();
 
             System.out.println("Entered correct login credentials and clicked login.");

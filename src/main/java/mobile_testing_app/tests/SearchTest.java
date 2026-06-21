@@ -6,12 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
 
 public class SearchTest extends BaseTest {
 
-    public SearchTest(AndroidDriver<AndroidElement> driver) {
+    public SearchTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -34,7 +34,7 @@ public class SearchTest extends BaseTest {
 
     private void testSearch2() {
         try{
-            AndroidElement searchMovieButton = (AndroidElement) wait.until(
+            WebElement searchMovieButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/booking_by_theater"))
             );
             searchMovieButton.click();
@@ -45,13 +45,13 @@ public class SearchTest extends BaseTest {
 
 
 
-            AndroidElement location = (AndroidElement) wait.until(
+            WebElement location = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.ExpandableListView[@resource-id='com.cgv.cinema.vn:id/exp_lv']/android.widget.LinearLayout[3]"))
             );
             location.click();
 
 
-            AndroidElement theater = (AndroidElement) wait.until(
+            WebElement theater = wait.until(
                     ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.LinearLayout[@resource-id='com.cgv.cinema.vn:id/container'])[2]"))
             );
             theater.click();
@@ -65,7 +65,7 @@ public class SearchTest extends BaseTest {
 
     private void testSearch1() {
         try{
-            AndroidElement searchMovieButton = (AndroidElement) wait.until(
+            WebElement searchMovieButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/booking_by_movies"))
             );
             searchMovieButton.click();
@@ -74,13 +74,13 @@ public class SearchTest extends BaseTest {
                 scrollUsingCoordinatesDown(driver);
             }
 
-            AndroidElement showingBtn = (AndroidElement) wait.until(
+            WebElement showingBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/lin_movie_type"))
             );
             showingBtn.click();
             Thread.sleep(3000);
 
-            AndroidElement movie = (AndroidElement) wait.until(
+            WebElement movie = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("(//android.widget.ImageView[@resource-id='com.cgv.cinema.vn:id/movie_image'])[4]"))
             );
             movie.click();

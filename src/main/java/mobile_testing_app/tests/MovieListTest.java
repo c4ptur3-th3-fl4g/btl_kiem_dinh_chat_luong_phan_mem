@@ -1,14 +1,14 @@
 package mobile_testing_app.tests;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MovieListTest extends BaseTest {
 
-    public MovieListTest(AndroidDriver<AndroidElement> driver) {
+    public MovieListTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -26,7 +26,7 @@ public class MovieListTest extends BaseTest {
     private void testSpecialMovies() {
         try {
             System.out.println("Testing navigation to Special Movies...");
-            AndroidElement specialButton = (AndroidElement) wait.until(
+            WebElement specialButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/txt_special"))
             );
             specialButton.click();
@@ -47,7 +47,7 @@ public class MovieListTest extends BaseTest {
     private void testComingSoonMovies() {
         try {
             System.out.println("Testing navigation to Coming Soon Movies...");
-            AndroidElement comingSoonButton = (AndroidElement) wait.until(
+            WebElement comingSoonButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/txt_coming_soon"))
             );
             comingSoonButton.click();

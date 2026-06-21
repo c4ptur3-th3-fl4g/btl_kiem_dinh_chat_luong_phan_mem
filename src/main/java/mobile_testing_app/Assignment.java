@@ -1,9 +1,6 @@
 package mobile_testing_app;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import mobile_testing_app.tests.BookingTest;
 import mobile_testing_app.tests.GiftTest;
 import mobile_testing_app.tests.LoginTest;
@@ -15,12 +12,10 @@ import mobile_testing_app.tests.TicketTest;
 import mobile_testing_app.tests.VideoTest;
 
 public class Assignment {
-	private final AndroidDriver<AndroidElement> driver;
-	private final WebDriverWait wait;
+	private final AndroidDriver driver;
 
-	public Assignment(AndroidDriver<AndroidElement> driver) {
+	public Assignment(AndroidDriver driver) {
 		this.driver = driver;
-		this.wait = new WebDriverWait(driver, 10); // Timeout 10s
 	}
 
 	public void runTest() {

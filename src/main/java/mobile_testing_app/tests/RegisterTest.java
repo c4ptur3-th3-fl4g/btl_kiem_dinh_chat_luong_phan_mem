@@ -4,19 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
+import mobile_testing_app.utils.AppiumUtils;
 
 public class RegisterTest extends BaseTest {
 
-    public RegisterTest(AndroidDriver<AndroidElement> driver) {
+    public RegisterTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -36,7 +32,7 @@ public class RegisterTest extends BaseTest {
 
     private void navigateToLogin1() {
         try {
-            AndroidElement userName = (AndroidElement) wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/user_name")));
+            WebElement userName = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/user_name")));
             userName.click();
             System.out.println("Navigated to register screen.");
         } catch (Exception e) {
@@ -46,7 +42,7 @@ public class RegisterTest extends BaseTest {
 
     private void navigateToLogin2() {
         try {
-            AndroidElement userName = (AndroidElement) wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_sign_up")));
+            WebElement userName = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_sign_up")));
             userName.click();
             System.out.println("Navigated to register screen.");
         } catch (Exception e) {
@@ -122,7 +118,7 @@ public class RegisterTest extends BaseTest {
 
         while (!found && attempts < maxScrollAttempts) {
             try {
-                AndroidElement element = driver.findElement(MobileBy.AndroidUIAutomator(
+                WebElement element = driver.findElement(AppiumBy.androidUIAutomator(
                         "new UiScrollable(new UiSelector().scrollable(true).instance(0))" +
                                 ".setAsVerticalList()" +
                                 ".scrollIntoView(new UiSelector().text(\"" + targetText + "\"))"
@@ -145,12 +141,7 @@ public class RegisterTest extends BaseTest {
     }
 
     private void swipeDown() {
-        new TouchAction<>(driver)
-                .press(PointOption.point(500, 1500)) // Bắt đầu từ giữa màn hình
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-                .moveTo(PointOption.point(500, 500)) // Vuốt lên để cuộn xuống
-                .release()
-                .perform();
+        AppiumUtils.scrollUsingCoordinatesDown(driver);
     }
 
 
@@ -159,17 +150,12 @@ public class RegisterTest extends BaseTest {
         boolean found = false;
         while (!found) {
             try {
-                AndroidElement picker = driver.findElement(By.xpath(pickerXpath));
+                WebElement picker = driver.findElement(By.xpath(pickerXpath));
                 if (picker.getText().equals(value)) {
                     picker.click();
                     found = true;
                 } else {
-                    new TouchAction<>(driver)
-                            .press(PointOption.point(500, 1300))
-                            .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-                            .moveTo(PointOption.point(500, 700))
-                            .release()
-                            .perform();
+                    AppiumUtils.scrollUsingCoordinatesDown(driver);
                 }
             } catch (Exception e) {
                 System.err.println("Failed to select date: " + e.getMessage());

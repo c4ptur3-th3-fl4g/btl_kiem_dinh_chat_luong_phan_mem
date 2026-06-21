@@ -1,14 +1,14 @@
 package mobile_testing_app.tests;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LogoutTest extends BaseTest {
 
-    public LogoutTest(AndroidDriver<AndroidElement> driver) {
+    public LogoutTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -25,11 +25,11 @@ public class LogoutTest extends BaseTest {
 
     private void testLogoutCancel() {
         try {
-            AndroidElement logoutBtn = (AndroidElement) wait.until(
+            WebElement logoutBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text='Log Out']"))
             );
             logoutBtn.click();
-            AndroidElement cancelBtn = (AndroidElement) wait.until(
+            WebElement cancelBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("android:id/button2"))
             );
             cancelBtn.click();
@@ -41,11 +41,11 @@ public class LogoutTest extends BaseTest {
 
     private void testLogoutOk() {
         try {
-            AndroidElement logoutBtn = (AndroidElement) wait.until(
+            WebElement logoutBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text='Log Out']"))
             );
             logoutBtn.click();
-            AndroidElement okBtn = (AndroidElement) wait.until(
+            WebElement okBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("android:id/button1"))
             );
             okBtn.click();

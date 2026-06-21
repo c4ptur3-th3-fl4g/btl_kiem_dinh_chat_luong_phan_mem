@@ -3,14 +3,14 @@ package mobile_testing_app.tests;
 import static mobile_testing_app.utils.AppiumUtils.scrollUsingCoordinatesDown;
 import static mobile_testing_app.utils.AppiumUtils.scrollUsingCoordinatesLeftCustom;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class VideoTest extends BaseTest {
 
-    public VideoTest(AndroidDriver<AndroidElement> driver) {
+    public VideoTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -36,7 +36,7 @@ public class VideoTest extends BaseTest {
 
         while (!sectionFound && swipeDownCount < maxDownSwipes) {
             try {
-                AndroidElement movieHubSection = (AndroidElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(videoXpath)));
+                WebElement movieHubSection = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(videoXpath)));
                 if (movieHubSection.isDisplayed()) {
                     sectionFound = true;
                     System.out.println("Found MovieHub section.");
@@ -60,7 +60,7 @@ public class VideoTest extends BaseTest {
 
         while (!itemFound && swipeLeftCount < maxLeftSwipes) {
             try {
-                AndroidElement targetItem = (AndroidElement) wait.until(ExpectedConditions.elementToBeClickable(By.xpath(targetItemXpath)));
+                WebElement targetItem = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(targetItemXpath)));
                 if (targetItem.isDisplayed()) {
                     targetItem.click();
                     itemFound = true;
@@ -80,7 +80,7 @@ public class VideoTest extends BaseTest {
 
     private void testMovieHubDetails() {
         try {
-            AndroidElement movieHubItem = (AndroidElement) wait.until(
+            WebElement movieHubItem = wait.until(
                     ExpectedConditions.elementToBeClickable(
                             By.xpath("//android.widget.LinearLayout[@content-desc='#MidnightStreetFood']")
                     )
@@ -89,7 +89,7 @@ public class VideoTest extends BaseTest {
             movieHubItem.click();
             Thread.sleep(5000);
 
-            AndroidElement movieHubItem1 = (AndroidElement) wait.until(
+            WebElement movieHubItem1 = wait.until(
                     ExpectedConditions.elementToBeClickable(
                             By.xpath("//android.widget.LinearLayout[@content-desc='#Newme']")
                     )
@@ -97,7 +97,7 @@ public class VideoTest extends BaseTest {
             movieHubItem1.click();
             Thread.sleep(5000);
 
-            AndroidElement movieHubItem2 = (AndroidElement) wait.until(
+            WebElement movieHubItem2 = wait.until(
                     ExpectedConditions.elementToBeClickable(
                             By.xpath("//android.widget.LinearLayout[@content-desc='#TheInternShip']")
                     )

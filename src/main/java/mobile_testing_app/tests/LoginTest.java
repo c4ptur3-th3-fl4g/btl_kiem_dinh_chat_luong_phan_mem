@@ -1,14 +1,15 @@
 package mobile_testing_app.tests;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
+import mobile_testing_app.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginTest extends BaseTest{
 
-    public  LoginTest(AndroidDriver<AndroidElement> driver) {
+    public  LoginTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -20,7 +21,13 @@ public class LoginTest extends BaseTest{
             navigateToLogin2();
             testLoginWrongFormat("tester", "password123");
             testLoginFailed("testuser@example.com", "password123");
-            testLoginSuccess("0913417215", "Phuongdok16cntt2!");
+            String phone = TestConfig.value("CGV_PHONE");
+            String password = TestConfig.value("CGV_PASSWORD");
+            if (phone.isBlank() || password.isBlank()) {
+                System.out.println("Skipping successful login: set CGV_PHONE and CGV_PASSWORD.");
+            } else {
+                testLoginSuccess(phone, password);
+            }
         } catch (Exception e) {
             System.err.println("Error during login tests: " + e.getMessage());
         }
@@ -28,7 +35,7 @@ public class LoginTest extends BaseTest{
 
     private void navigateToLogin1() {
         try {
-            AndroidElement userName = (AndroidElement) wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/user_name")));
+            WebElement userName = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/user_name")));
             userName.click();
             System.out.println("Navigated to login screen.");
         } catch (Exception e) {
@@ -38,7 +45,7 @@ public class LoginTest extends BaseTest{
 
     private void navigateToLogin2() {
         try {
-            AndroidElement userName = (AndroidElement) wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_login")));
+            WebElement userName = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_login")));
             userName.click();
             System.out.println("Navigated to login screen.");
         } catch (Exception e) {
@@ -48,13 +55,13 @@ public class LoginTest extends BaseTest{
 
     private void testLoginWrongFormat(String username, String password) {
         try {
-            AndroidElement emailField = (AndroidElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
+            WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
             emailField.sendKeys(username);
 
-            AndroidElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
+            WebElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
             passwordField.sendKeys(password);
 
-            AndroidElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
+            WebElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
             loginButton.click();
             System.out.println("Entered login credentials and clicked login.");
 
@@ -65,13 +72,13 @@ public class LoginTest extends BaseTest{
 
     private void testLoginFailed(String sdt, String password) {
         try {
-            AndroidElement emailField = (AndroidElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
+            WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
             emailField.sendKeys(sdt);
 
-            AndroidElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
+            WebElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
             passwordField.sendKeys(password);
 
-            AndroidElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
+            WebElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
             loginButton.click();
 
             System.out.println("Entered login credentials and clicked login.");
@@ -87,17 +94,17 @@ public class LoginTest extends BaseTest{
         while (retryCount < 20 && !loginSuccessful) {
             try {
 
-                AndroidElement emailField = (AndroidElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
+                WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.cgv.cinema.vn:id/edt_email_phone")));
                 emailField.clear();
                 emailField.sendKeys(sdt);
 
 
-                AndroidElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
+                WebElement passwordField = driver.findElement(By.id("com.cgv.cinema.vn:id/edt_password"));
                 passwordField.clear();
                 passwordField.sendKeys(password);
 
 
-                AndroidElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
+                WebElement loginButton = driver.findElement(By.id("com.cgv.cinema.vn:id/btn_login"));
                 loginButton.click();
                 System.out.println("Entered login credentials and clicked login (Attempt " + (retryCount + 1) + ")");
 

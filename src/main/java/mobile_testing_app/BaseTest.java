@@ -1,25 +1,27 @@
 package mobile_testing_app;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class BaseTest {
-    protected AndroidDriver<AndroidElement> driver;
+    protected AndroidDriver driver;
     protected WebDriverWait wait;
 
-    public BaseTest(AndroidDriver<AndroidElement> driver) {
+    public BaseTest(AndroidDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 10); // Timeout 10s
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     // Các hàm tiện ích chung có thể thêm ở đây
     protected void closeAd() {
         try {
-            AndroidElement closeAd = (AndroidElement) wait.until(
+            WebElement closeAd = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/close"))
             );
             closeAd.click();
@@ -31,7 +33,7 @@ public class BaseTest {
 
     protected void openMenu() {
         try {
-            AndroidElement menuButton = (AndroidElement) wait.until(
+            WebElement menuButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_right_menu"))
             );
             menuButton.click();
@@ -54,13 +56,14 @@ public class BaseTest {
 
     protected void navigateBack() {
         try {
-            AndroidElement backButton = (AndroidElement) wait.until(
+            WebElement backButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_top_bar_left"))
             );
             backButton.click();
             System.out.println("Returned to movie page.");
         } catch (Exception e) {
-            System.err.println("Back button not found: " + e.getMessage());
+            driver.navigate().back();
+            System.out.println("Returned using Android system back.");
         }
     }
 
@@ -92,7 +95,7 @@ public class BaseTest {
         } catch (Exception e) {
             System.out.println("Not on home page, navigating to home...");
             openMenu();
-            AndroidElement homeButton = (AndroidElement) wait.until(
+            WebElement homeButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/menu_home"))
             );
             homeButton.click();

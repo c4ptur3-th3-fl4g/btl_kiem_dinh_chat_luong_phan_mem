@@ -3,14 +3,14 @@ package mobile_testing_app.tests;
 import static mobile_testing_app.utils.AppiumUtils.scrollUsingCoordinatesDown;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import mobile_testing_app.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class GiftTest extends BaseTest {
 
-    public GiftTest(AndroidDriver<AndroidElement> driver) {
+    public GiftTest(AndroidDriver driver) {
         super(driver);
     }
 
@@ -56,7 +56,7 @@ public class GiftTest extends BaseTest {
 
         while (!itemProcessed && retryCount < maxRetries) {
             try {
-                AndroidElement targetItem = (AndroidElement) wait.until(
+                WebElement targetItem = wait.until(
                         ExpectedConditions.elementToBeClickable(By.xpath(targetItemXpath))
                 );
                 targetItem.click();
@@ -90,7 +90,7 @@ public class GiftTest extends BaseTest {
 
         // 3. Nhấn "View All" button
         try {
-            AndroidElement viewAllButton = (AndroidElement) wait.until(
+            WebElement viewAllButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("(//android.widget.Button[@resource-id='com.cgv.cinema.vn:id/btn_all'])[2]"))
             );
             viewAllButton.click();
@@ -106,7 +106,7 @@ public class GiftTest extends BaseTest {
     private void testCollection() {
         try {
             // Kiểm tra và nhấn nút Collection
-            AndroidElement collectionButton = (AndroidElement) wait.until(
+            WebElement collectionButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.id("com.cgv.cinema.vn:id/btn_collection"))
             );
             collectionButton.click();
@@ -132,7 +132,7 @@ public class GiftTest extends BaseTest {
 
             while (!collectionItemProcessed && swipeDownCountCollection < maxDownSwipesCollection) {
                 try {
-                    AndroidElement collectionItem = (AndroidElement) wait.until(
+                    WebElement collectionItem = wait.until(
                             ExpectedConditions.elementToBeClickable(By.xpath(collectionItemXpath))
                     );
                     collectionItem.click();
