@@ -4,7 +4,7 @@
 
 &lt; CGV Cinemas&gt;
 
-**Nhóm sinh viên: 5**
+**Nhóm sinh viên: 6**
 
 ## Mục đích
 
